@@ -16,14 +16,14 @@ commands:
       - restore_cache:
           keys:
             # when lock file changes, use increasingly general patterns to restore cache
-            - cwa-store-bundle-v2-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - cwa-store-bundle-v2-{{ arch }}-{{ .Branch }}-{{ checksum "src/xcode/Gemfile.lock" }}
             - cwa-store-bundle-v2-{{ arch }}-{{ .Branch }}-
             - cwa-store-bundle-v2-{{ arch }}-
       - run: bundle check || bundle install
       - save_cache:
           paths:
             - ~/.bundle
-          key: cwa-store-bundle-v2-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          key: cwa-store-bundle-v2-{{ arch }}-{{ .Branch }}-{{ checksum "src/xcode/Gemfile.lock" }}
 
 jobs:
   build:
