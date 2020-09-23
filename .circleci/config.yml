@@ -22,7 +22,7 @@ commands:
       - run: cd src/xcode && bundle check || bundle install
       - save_cache:
           paths:
-            - ~/.bundle
+            - vendor/bundle
           key: cwa-store-bundle-v2-{{ arch }}-{{ .Branch }}-{{ checksum "src/xcode/Gemfile.lock" }}
 
 jobs:
