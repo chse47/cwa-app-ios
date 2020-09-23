@@ -12,7 +12,19 @@ commands:
           command: sudo gem install bundler:2.1.4
       - run:
           name: Install dependencies
-          command: brew install swiftlint && cd src/xcode && bundle install
+          command: brew install swiftlint && cd src/xcode
+      - run: bundle clean --force
+        - restore_cache:
+          keys:
+          # when lock file changes, use increasingly general patterns to restore cache
+          - v1-gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          - v1-gem-cache-{{ arch }}-{{ .Branch }}-
+          - v1-gem-cache-{{ arch }}-
+      - run: bundle install
+      - save_cache:
+        paths:
+          - ~/.bundle
+        key: v1-gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
 
 jobs:
   build:
