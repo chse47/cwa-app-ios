@@ -19,10 +19,10 @@ commands:
             - cwa-store-bundle-v2-{{ arch }}-{{ .Branch }}-{{ checksum "src/xcode/Gemfile.lock" }}
             - cwa-store-bundle-v2-{{ arch }}-{{ .Branch }}-
             - cwa-store-bundle-v2-{{ arch }}-
-      - run: cd src/xcode && bundle check || bundle install
+      - run: cd src/xcode && bundle check || bundle install --path .gem
       - save_cache:
           paths:
-            - vendor/bundle
+            - src/xcode/.gem
           key: cwa-store-bundle-v2-{{ arch }}-{{ .Branch }}-{{ checksum "src/xcode/Gemfile.lock" }}
 
 jobs:
